@@ -8,7 +8,7 @@ namespace LearnCert.Api.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-        "Hello", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        "aaaaaa", "aaaaaaaa", "aaaaaaaa", "aaaaaaaaaa", "aaaaaaaaaa", "2222", "aaaaaaaa", "sasda", "aaaaaaaaaa", "vvvvv"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;

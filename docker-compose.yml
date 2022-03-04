@@ -1,0 +1,9 @@
+version: '3.7'
+services: 
+  api:
+    build: '.'
+    container_name: learn-cert-api-container
+    restart: always
+    ports: 
+      - '8080:5000'
+    
