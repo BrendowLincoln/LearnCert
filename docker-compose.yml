@@ -1,9 +1,19 @@
 version: '3.7'
 services: 
+  database:
+    image: amazon/dynamodb-local
+    container_name: learn-cert-dynamodb
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "/home/dynamodblocal/data"]
+    volumes:
+      - ./tmp/dynamodb/data:/home/dynamodblocal/data
+    restart: always
+    ports: 
+      - '8081:8000'
   api:
     build: '.'
-    container_name: learn-cert-api-container
+    container_name: learn-cert-api
     restart: always
     ports: 
       - '8080:5000'
-    
+    depends_on:
+      - database
