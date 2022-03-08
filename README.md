@@ -25,3 +25,7 @@ docker run -d -p 8080:5000 --name learn-cert-api-container learn-cert-api-image
 docker-compose rm -f -s | docker-compose build | docker-compose up -d
 
 ```
+
+## NoSQL Workbench
+
+[Download](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html)
