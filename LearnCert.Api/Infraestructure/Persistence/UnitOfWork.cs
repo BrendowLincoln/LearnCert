@@ -5,8 +5,8 @@ namespace LearnCert.Api.Infrastructure.Persistence
 {
     public interface IUnitOfWork
     {
-        void Save(TEntity entity) where TEntity : class;
-        void Delete(TEntity entity) where TEntity : class;
+        void Save<TEntity>(TEntity entity) where TEntity : class;
+        void Delete<TEntity>(TEntity entity) where TEntity : class;
         IQueryable<T> Query<T>();
     }
 
@@ -20,14 +20,14 @@ namespace LearnCert.Api.Infrastructure.Persistence
             _session = session;
         }
     
-        public void Save(TEntity entity) where TEntity : class
+        public void Save<TEntity>(TEntity entity) where TEntity : class
         {
             BeginTransaction();
             _session.Save(entity);
             CloseTransaction();
         }
     
-        public void Delete(TEntity entity) where TEntity : class
+        public void Delete<TEntity>(TEntity entity) where TEntity : class
         {
             BeginTransaction();
             _session.Delete(entity);

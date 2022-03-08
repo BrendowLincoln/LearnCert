@@ -1,29 +1,16 @@
-using NHibernate;
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
+using FluentNHibernate.Mapping;
 
 namespace LearnCert.Api
 {
-    public class BookMap : ClassMapping<Book>
+    public class BookMap : ClassMap<Book>
     {
         public BookMap()
         {
-            Id(x => x.Id, x =>
-            {
-                x.Generator(Generators.Guid);
-                x.Type(NHibernateUtil.Guid);
-                x.Column("Id");
-                x.UnsavedValue(Guid.Empty);
-            });
+            Table("Book");
+            
+            Id(x => x.Id);
+            Map(x => x.Title);
     
-            Property(b => b.Title, x =>
-            {
-                x.Length(50);
-                x.Type(NHibernateUtil.StringClob);
-                x.NotNullable(true);
-            });
-    
-            Table("Books");
         }
     }
 }

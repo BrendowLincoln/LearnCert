@@ -1,23 +1,34 @@
+using LearnCert.Api.Domain.Book;
 using Microsoft.AspNetCore.Mvc;
+using ISession = NHibernate.ISession;
 
 namespace LearnCert.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    
+    [Route("WeatherForecast")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
-        "aaaaaa", "aaaaaaaa", "aaaaaaaa", "aaaaaaaaaa", "aaaaaaaaaa", "2222", "aaaaaaaa", "sasda", "aaaaaaaaaa", "vvvvv"
-    };
+            "aaaaaa", "aaaaaaaa", "aaaaaaaa", "aaaaaaaaaa", "aaaaaaaaaa", "2222", "aaaaaaaa", "sasda", "aaaaaaaaaa", "vvvvv"
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IBookReadRepository _bookReadRepository;
+        
+        public WeatherForecastController(IBookReadRepository bookReadRepository)
         {
-            _logger = logger;
+            _bookReadRepository = bookReadRepository;
         }
-
+        
+        [HttpGet]
+        [Route("Index")]
+        public IList<Book> Index()
+        {
+            var list = _bookReadRepository.GetBooks().ToList();
+            return list;
+        }
+        
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {

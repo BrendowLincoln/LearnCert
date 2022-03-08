@@ -1,8 +1,7 @@
-namespace LearnCert.Api
+namespace LearnCert.Api;
+
+public class Book
 {
-    public class Book
-    {
-        public virtual Guid Id { get; set; }
-        public virtual string Title { get; set; }
-    }
+    public virtual Guid Id { get; set; }
+    public virtual string Title { get; set; }
 }
