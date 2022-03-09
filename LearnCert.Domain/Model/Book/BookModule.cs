@@ -1,4 +1,6 @@
-﻿namespace LearnCert.Api.Domain.Book;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace LearnCert.Domain;
 
 public class BookModule : IDependencyInjection
 {

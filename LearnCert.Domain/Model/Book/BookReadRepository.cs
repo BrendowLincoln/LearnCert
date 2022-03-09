@@ -1,10 +1,10 @@
-﻿using LearnCert.Api.Infrastructure.Persistence;
+﻿using LearnCert.Domain.Infrastructure.Persistence;
 
-namespace LearnCert.Api.Domain.Book;
+namespace LearnCert.Domain;
 
 public interface IBookReadRepository
 {
-    IQueryable<Api.Book> GetBooks();
+    IQueryable<Book> GetBooks();
 }
 
 public class BookReadRepository : IBookReadRepository
@@ -17,8 +17,8 @@ public class BookReadRepository : IBookReadRepository
         _unitOfWork = unitOfWork;
     }
     
-    public IQueryable<Api.Book> GetBooks()
+    public IQueryable<Book> GetBooks()
     {
-        return _unitOfWork.Query<Api.Book>();
+        return _unitOfWork.Query<Book>();
     }
 }

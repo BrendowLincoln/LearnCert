@@ -1,7 +1,7 @@
 using NHibernate;
 using ISession = NHibernate.ISession;
 
-namespace LearnCert.Api.Infrastructure.Persistence
+namespace LearnCert.Domain.Infrastructure.Persistence
 {
     public interface IUnitOfWork
     {

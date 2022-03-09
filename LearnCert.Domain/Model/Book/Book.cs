@@ -1,4 +1,4 @@
-namespace LearnCert.Api;
+namespace LearnCert.Domain;
 
 public class Book
 {
