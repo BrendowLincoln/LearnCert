@@ -9,16 +9,16 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["LearnCert.Api/LearnCert.Api.csproj", "LearnCert.Api/"]
-RUN dotnet restore "LearnCert.Api/LearnCert.Api.csproj"
+COPY ["LearnCert.Application/LearnCert.Application.csproj", "LearnCert.Application/"]
+RUN dotnet restore "LearnCert.Application/LearnCert.Application.csproj"
 COPY . .
-WORKDIR "/src/LearnCert.Api"
-RUN dotnet build "LearnCert.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/LearnCert.Application"
+RUN dotnet build "LearnCert.Application.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LearnCert.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "LearnCert.Application.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LearnCert.Api.dll"]
+ENTRYPOINT ["dotnet", "LearnCert.Application.dll"]
