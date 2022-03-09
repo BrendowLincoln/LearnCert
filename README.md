@@ -10,6 +10,7 @@
 - [x] Create functionality to use multiple files to implements a Dependency Injection of IServiceCollection;
 - [x] Separate multiple projects inside the solution for Api, Domain, Infraestructure, and others;
 - [ ] Remove SQL Server Connection and Add Amazon DynamoDb (NoSQL);
+- [ ] Change Dockerfile to create a image with all projects of soluction;
 
 
 ### Build and run app using Docker
