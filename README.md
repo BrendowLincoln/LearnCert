@@ -9,10 +9,11 @@
 - [x] Implement a Repository Pattern with UnitOfWork;
 - [x] Create functionality to use multiple files to implements a Dependency Injection of IServiceCollection;
 - [x] Separate multiple projects inside the solution for Api, Domain, Infraestructure, and others;
-- [ ] Change Dockerfile to create a image with all projects of soluction;
+- [x] Change Dockerfile to create a image with all projects of soluction;
 - [ ] Remove SQL Server and Add MySQL (Amazon Aurora);
 - [ ] Add MySQL docker-compose;
 - [ ] Create React app with Vite;
+- [ ] Add React app docker-compose;
 
 
 ### Build and run app using Docker
