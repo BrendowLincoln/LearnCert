@@ -10,8 +10,9 @@
 - [x] Create functionality to use multiple files to implements a Dependency Injection of IServiceCollection;
 - [x] Separate multiple projects inside the solution for Api, Domain, Infraestructure, and others;
 - [x] Change Dockerfile to create a image with all projects of soluction;
-- [ ] Remove SQL Server and Add MySQL (Amazon Aurora);
-- [ ] Add MySQL docker-compose;
+- [x] Remove SQL Server and Add MySQL (Amazon Aurora);
+- [x] Add MySQL docker-compose;
+- [ ] Add migrations database;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 

@@ -1,11 +1,23 @@
 version: '3.7'
 services: 
+  database:
+    image: mysql
+    container_name: learn-cert-database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: learn_cert_db
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./tmp/mysql/data:/var/lib/mysql
   api:
     build: '.'
     container_name: learn-cert-api
-    restart: always
     ports: 
       - '8080:5000'
+    depends_on:
+      - database
 networks:
   learn-cert-network:
     name: learn-cert-network

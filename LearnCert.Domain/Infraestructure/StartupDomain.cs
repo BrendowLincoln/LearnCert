@@ -23,7 +23,7 @@ public class RegisterDomain
         var connectionString = Configuration.GetConnectionString("DefaultConnection");
         
         var sessionFactory = Fluently.Configure()
-            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
+            .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
             .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
             .BuildSessionFactory();
         
