@@ -6,7 +6,6 @@ project.lock.json
 nupkg/
 
 # Visual Studio Code
-.vscode
 
 # Rider
 .idea
@@ -34,6 +33,5 @@ msbuild.err
 msbuild.wrn
 
 # Visual Studio 2022
-.vs/
 
 tmp/
