@@ -12,7 +12,7 @@
 - [x] Change Dockerfile to create a image with all projects of soluction;
 - [x] Remove SQL Server and Add MySQL (Amazon Aurora);
 - [x] Add MySQL docker-compose;
-- [ ] Add migrations database;
+- [x] Add migrations database;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 

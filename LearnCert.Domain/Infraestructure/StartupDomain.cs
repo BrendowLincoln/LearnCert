@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using LearnCert.Domain.Infraestructure.Persistence.Migrations;
 using LearnCert.Domain.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +31,17 @@ public class RegisterDomain
         
         Services.AddScoped(_ => sessionFactory.OpenSession());
         Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+        
+        var serviceProvider = Services.AddFluentMigratorCore()
+            .ConfigureRunner(rb => rb
+                .AddMySql5()
+                .WithGlobalConnectionString(connectionString)
+                .ScanIn(typeof(CreateBookTable).Assembly).For.Migrations())
+            .AddLogging(lb => lb.AddFluentMigratorConsole())
+            .BuildServiceProvider(false);
+        
+        serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
+        
         RegisterModules();
     }
     
