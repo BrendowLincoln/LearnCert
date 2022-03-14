@@ -8,11 +8,13 @@
 - [x] Add SQL Server Connection (*temporary*);
 - [x] Implement a Repository Pattern with UnitOfWork;
 - [x] Create functionality to use multiple files to implements a Dependency Injection of IServiceCollection;
-- [x] Separate multiple projects inside the solution for Api, Domain, Infraestructure, and others;
-- [x] Change Dockerfile to create a image with all projects of soluction;
+- [x] Separate multiple projects inside the solution for Api, Domain, Infrastructure, and others;
+- [x] Change Dockerfile to create a image with all projects of solution;
 - [x] Remove SQL Server and Add MySQL (Amazon Aurora);
 - [x] Add MySQL docker-compose;
 - [x] Add migrations database;
+- [ ] Configure Unit Test suite;
+- [ ] Configure Integration Test suite;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 

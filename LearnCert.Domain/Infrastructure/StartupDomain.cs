@@ -7,7 +7,7 @@ using LearnCert.Domain.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LearnCert.Domain.Infraestructure;
+namespace LearnCert.Domain.Infrastructure;
 
 public class RegisterDomain
 {

@@ -1,6 +1,6 @@
 ﻿using FluentMigrator.Builders.Create.Table;
 
-namespace LearnCert.Domain.Infraestructure.Persistence;
+namespace LearnCert.Domain.Infrastructure.Persistence;
 
 public static class CreateTableColumnAsTypeSyntaxExtension
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LearnCert.Domain.Infrastructure.Persistence;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LearnCert.Domain;
 

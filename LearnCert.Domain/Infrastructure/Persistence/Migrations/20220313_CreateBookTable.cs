@@ -1,4 +1,5 @@
 ﻿using FluentMigrator;
+using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.Domain.Infraestructure.Persistence.Migrations;
 

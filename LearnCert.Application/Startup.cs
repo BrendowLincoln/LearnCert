@@ -1,4 +1,5 @@
 using LearnCert.Domain.Infraestructure;
+using LearnCert.Domain.Infrastructure;
 
 namespace LearnCert.Api;
 

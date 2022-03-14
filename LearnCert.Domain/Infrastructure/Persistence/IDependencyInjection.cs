@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace LearnCert.Domain;
+namespace LearnCert.Domain.Infrastructure.Persistence;
 public interface IDependencyInjection
 {
     public void Compose(IServiceCollection services);
