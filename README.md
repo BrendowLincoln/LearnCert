@@ -13,8 +13,9 @@
 - [x] Remove SQL Server and Add MySQL (Amazon Aurora);
 - [x] Add MySQL docker-compose;
 - [x] Add migrations database;
-- [ ] Configure Unit Test suite;
+- [x] Configure Unit Test suite;
 - [ ] Configure Integration Test suite;
+- [x] Configure Autofixture;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 
