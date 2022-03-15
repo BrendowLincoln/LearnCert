@@ -2,13 +2,13 @@ using LearnCert.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 
-[Route("WeatherForecast")]
-public class WeatherForecastController : ControllerBase
+[Route("Book")]
+public class BookController : ControllerBase
 {
 
     private readonly IBookReadRepository _bookReadRepository;
         
-    public WeatherForecastController(IBookReadRepository bookReadRepository)
+    public BookController(IBookReadRepository bookReadRepository)
     {
         _bookReadRepository = bookReadRepository;
     }
@@ -17,8 +17,7 @@ public class WeatherForecastController : ControllerBase
     [Route("Index")]
     public IList<Book> Index()
     {
-        var list = _bookReadRepository.GetBooks().ToList();
-        return list;
+        return _bookReadRepository.GetBooks().ToList();;
     }
         
 }
