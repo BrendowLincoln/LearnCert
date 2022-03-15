@@ -18,7 +18,3 @@ services:
       - '8080:5000'
     depends_on:
       - database
-networks:
-  learn-cert-network:
-    name: learn-cert-network
-    driver: bridge
