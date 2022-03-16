@@ -1,4 +1,3 @@
-using LearnCert.Domain.Infraestructure;
 using LearnCert.Domain.Infrastructure;
 
 namespace LearnCert.Api;
@@ -14,7 +13,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var domainModule = new RegisterDomain(Configuration, services);
+        var domainModule = new StartupDomain(Configuration, services);
         domainModule.Initialize();
     }
 

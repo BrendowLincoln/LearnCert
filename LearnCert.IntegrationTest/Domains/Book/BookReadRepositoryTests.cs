@@ -2,21 +2,20 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace LearnCert.UnitTest.Models.Book;
+namespace LearnCert.IntegrationTest.Domains.Book;
 
-public class BookTests : UnitTestBase
+public class BookReadRepositoryTests : IntegrationTestBase
 {
 
     [Test]
-    public void ShouldBeTrue()
+    public void ShouldCreateABook()
     {
         // Given
         var book = Fixture.Create<Domain.Domains.Book.Book>();
         
         // When
-        var result = 1;
         
         // Then
-        result.Should().Be(1);
+        book.Should().NotBeNull();
     }
 }

@@ -7,6 +7,7 @@ namespace LearnCert.Domain.Infrastructure.Persistence
     {
         void Save<TEntity>(TEntity entity) where TEntity : class;
         void Delete<TEntity>(TEntity entity) where TEntity : class;
+        TEntity Merge<TEntity>(TEntity entity) where TEntity : class;
         IQueryable<T> Query<T>();
     }
 
@@ -32,6 +33,13 @@ namespace LearnCert.Domain.Infrastructure.Persistence
             BeginTransaction();
             _session.Delete(entity);
             CloseTransaction();
+        }
+        
+        public TEntity Merge<TEntity>(TEntity entity) where TEntity : class
+        {
+            var result = _session.Merge(entity);
+            _session.Flush();
+            return result;
         }
 
         public IQueryable<T> Query<T>()

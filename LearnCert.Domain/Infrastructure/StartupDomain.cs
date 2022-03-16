@@ -9,12 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LearnCert.Domain.Infrastructure;
 
-public class RegisterDomain
+public class StartupDomain
 {
     private IConfiguration Configuration { get; }
     private IServiceCollection Services { get; }
     
-    public RegisterDomain(IConfiguration configuration, IServiceCollection services)
+    public StartupDomain(IConfiguration configuration, IServiceCollection services)
     {
         Configuration = configuration;
         Services = services;

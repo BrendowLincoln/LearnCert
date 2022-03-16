@@ -1,6 +1,6 @@
 ﻿using AutoFixture.Kernel;
 
-namespace LearnCert.UnitTest.AutoFixture;
+namespace LearnCert.TestBase.AutoFixture;
 
 public abstract class BaseBuilder : ISpecimenBuilder
 {

@@ -7,12 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LearnCert.TestBase\LearnCert.TestBase.csproj" />
+      <PackageReference Include="AutoFixture" Version="4.17.0" />
+      <PackageReference Include="FluentAssertions" Version="6.5.1" />
+      <PackageReference Include="NUnit" Version="3.13.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-      <PackageReference Include="NUnit" Version="3.13.2" />
+      <ProjectReference Include="..\LearnCert.Domain\LearnCert.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnCert.Domain", "LearnCe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnCert.UnitTest", "LearnCert.UnitTest\LearnCert.UnitTest.csproj", "{7010F7C1-24BD-4A4A-AB38-A8BF51278189}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnCert.IntegrationTest", "LearnCert.IntegrationTest\LearnCert.IntegrationTest.csproj", "{27E034A2-6112-463B-A472-365F976E2469}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnCert.TestBase", "LearnCert.TestBase\LearnCert.TestBase.csproj", "{6B0EB881-C620-47AA-A491-014E491D8E77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{7010F7C1-24BD-4A4A-AB38-A8BF51278189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7010F7C1-24BD-4A4A-AB38-A8BF51278189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7010F7C1-24BD-4A4A-AB38-A8BF51278189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27E034A2-6112-463B-A472-365F976E2469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E034A2-6112-463B-A472-365F976E2469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E034A2-6112-463B-A472-365F976E2469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E034A2-6112-463B-A472-365F976E2469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B0EB881-C620-47AA-A491-014E491D8E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B0EB881-C620-47AA-A491-014E491D8E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B0EB881-C620-47AA-A491-014E491D8E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B0EB881-C620-47AA-A491-014E491D8E77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
