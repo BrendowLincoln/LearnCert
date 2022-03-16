@@ -32,8 +32,7 @@ public class SaveEntityNode : BaseBehaviour
     public override object Create(object request, ISpecimenContext context)
     {
         var specimen = Builder.Create(request, context);
-        var entity = specimen as IBaseState;
-        if (entity != null)
+        if (specimen is IBaseState entity)
         {
             return _unitOfWork.Merge(entity);
         }

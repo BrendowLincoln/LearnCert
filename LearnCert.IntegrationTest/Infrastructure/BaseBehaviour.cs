@@ -23,7 +23,7 @@ public abstract class BaseBehaviour : ISpecimenBuilderNode
 
     public ISpecimenBuilderNode Compose(IEnumerable<ISpecimenBuilder> builders)
     {
-        var builder = ComposeIfMultiple(builders);
+        var builder = CreateSingleBuilder(builders);
         return CreateBuilder(builder);
     }
 
@@ -34,30 +34,10 @@ public abstract class BaseBehaviour : ISpecimenBuilderNode
    
     protected abstract ISpecimenBuilderNode CreateBuilder(ISpecimenBuilder builder);
 
-    private static ISpecimenBuilder ComposeIfMultiple(IEnumerable<ISpecimenBuilder> builders)
+    private static ISpecimenBuilder CreateSingleBuilder(IEnumerable<ISpecimenBuilder> builders)
     {
-        var isSingle = builders.Take(2).Count() == 1;
-        if (isSingle)
-            return builders.Single();
-
-        return new CompositeSpecimenBuilder(builders);
+        return builders.Count() == 1 ? builders.Single() : new CompositeSpecimenBuilder(builders);
     }
     
-    protected bool IsEntityCollection(PropertyInfo prop)
-    {
-        return prop.PropertyType.GetInterfaces().Contains(typeof(IEnumerable)) &&
-               prop.PropertyType.IsGenericType &&
-               prop.PropertyType.GetGenericArguments()[0].GetInterfaces().Contains(typeof(IBaseState));
-    }
-    
-    protected bool IsDictionary(PropertyInfo prop)
-    {
-        return prop.PropertyType.GetInterfaces().Contains(typeof (IDictionary));
-    }
-    
-    protected bool IsEntity(PropertyInfo prop)
-    {
-        return prop.PropertyType.GetInterfaces().Contains(typeof(IBaseState));
-    }
 
 }

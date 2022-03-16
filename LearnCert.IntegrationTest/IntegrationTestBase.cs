@@ -16,7 +16,6 @@ public class IntegrationTestBase
         Fixture.Customizations.Add(RegisterCustomBuilders.Register());
 
         var serviceContainerBuilder = new ServiceContainerBuilder();
-        
         Fixture.Behaviors.Add(new SaveEntityBehaviour(serviceContainerBuilder.GetInstance<IUnitOfWork>()));
     }
 }

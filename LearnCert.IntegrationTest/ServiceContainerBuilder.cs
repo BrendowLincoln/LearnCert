@@ -24,6 +24,7 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
     public ServiceContainerBuilder()
     {
         Services = new ServiceCollection();
+        // TODO Create a fake IConfiguration and define a connection string to test database
         var connectionString = "Server=127.0.0.1;Database=learn_cert_db;Uid=root;Pwd=root;";
         
         var sessionFactory = Fluently.Configure()
@@ -57,8 +58,7 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
     {
         try
         {
-            var type = request as Type;
-            if (type != null)
+            if (request is Type type)
             {
                 return ServiceProvider.GetService(type);
             }
