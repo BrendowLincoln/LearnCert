@@ -1,7 +1,7 @@
 ﻿using LearnCert.Domain.Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LearnCert.Domain;
+namespace LearnCert.Domain.Domains.Book;
 
 public class BookModule : IDependencyInjection
 {

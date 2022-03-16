@@ -1,6 +1,6 @@
 using FluentNHibernate.Mapping;
 
-namespace LearnCert.Domain
+namespace LearnCert.Domain.Domains.Book
 {
     public class BookMap : ClassMap<Book>
     {

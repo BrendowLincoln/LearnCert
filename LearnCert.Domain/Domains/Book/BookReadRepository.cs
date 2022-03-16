@@ -1,10 +1,11 @@
 ﻿using LearnCert.Domain.Infrastructure.Persistence;
 
-namespace LearnCert.Domain;
+namespace LearnCert.Domain.Domains.Book;
 
 public interface IBookReadRepository
 {
     IQueryable<Book> GetBooks();
+    void Update(Book book);
 }
 
 public class BookReadRepository : IBookReadRepository
@@ -20,5 +21,10 @@ public class BookReadRepository : IBookReadRepository
     public IQueryable<Book> GetBooks()
     {
         return _unitOfWork.Query<Book>();
+    }
+
+    public void Update(Book book)
+    {
+        _unitOfWork.Merge(book);
     }
 }

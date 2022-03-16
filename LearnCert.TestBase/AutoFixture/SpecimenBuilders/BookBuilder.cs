@@ -1,8 +1,10 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
 using LearnCert.Domain;
+using LearnCert.Domain.Domains.Book;
+using LearnCert.Domain.Infrastructure.Persistence;
 
-namespace LearnCert.UnitTest.AutoFixture.SpecimentBuilders;
+namespace LearnCert.TestBase.AutoFixture.SpecimenBuilders;
 
 internal class BookBuilder : BaseBuilder
 {
@@ -17,7 +19,8 @@ internal class BookBuilder : BaseBuilder
         return new Book()
         {
             Id = context.Create<Guid>(),
-            Title = "Hello 1"
+            Title = context.Create<string>()
         };
     }
+
 }
