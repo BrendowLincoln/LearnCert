@@ -24,8 +24,11 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
     public ServiceContainerBuilder()
     {
         Services = new ServiceCollection();
-        // TODO Create a fake IConfiguration and define a connection string to test database
-        var connectionString = "Server=127.0.0.1;Database=learn_cert_db;Uid=root;Pwd=root;";
+        
+        var config = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json");
+        Configuration = config.Build();
+        
+        var connectionString = Configuration.GetConnectionString("DefaultConnection");
         
         var sessionFactory = Fluently.Configure()
             .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
@@ -34,7 +37,6 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
         
         Services.AddScoped(_ => sessionFactory.OpenSession());
         Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 
         Services.AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
