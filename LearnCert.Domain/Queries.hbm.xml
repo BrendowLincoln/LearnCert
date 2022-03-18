@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    
+    <sql-query name="GetAllTruncateTables">
+        <![CDATA[
+            SELECT 
+                concat('TRUNCATE TABLE ', TABLE_NAME)
+            FROM   information_schema.tables
+            WHERE TABLE_TYPE = 'BASE TABLE' 
+                AND TABLE_SCHEMA = :schema
+                AND TABLE_NAME != 'VersionInfo';
+        ]]>
+    </sql-query>
+    
+</hibernate-mapping>

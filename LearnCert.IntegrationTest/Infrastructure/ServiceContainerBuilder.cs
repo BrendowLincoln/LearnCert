@@ -2,7 +2,6 @@
 using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using LearnCert.Domain;
 using LearnCert.Domain.Domains.Book;
 using LearnCert.Domain.Infraestructure.Persistence.Migrations;
 using LearnCert.Domain.Infrastructure.Persistence;
@@ -32,12 +31,16 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
         
         var sessionFactory = Fluently.Configure()
             .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
-            .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(BookMap).Assembly))
+            .Mappings(m =>
+            {
+                m.FluentMappings.AddFromAssembly(typeof(BookMap).Assembly);
+                m.HbmMappings.AddFromAssembly(typeof(BookMap).Assembly);
+            })
             .BuildSessionFactory();
-        
+
         Services.AddScoped(_ => sessionFactory.OpenSession());
         Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+        
         Services.AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
                 .AddMySql5()

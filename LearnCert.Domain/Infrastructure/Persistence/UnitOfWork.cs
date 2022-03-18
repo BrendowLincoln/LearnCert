@@ -9,6 +9,8 @@ namespace LearnCert.Domain.Infrastructure.Persistence
         void Delete<TEntity>(TEntity entity) where TEntity : class;
         TEntity Merge<TEntity>(TEntity entity) where TEntity : class;
         IQueryable<T> Query<T>();
+        IQuery GetNamedQuery(string namedQuery);
+        IQuery ExecuteQuery(string queryString);
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -47,6 +49,16 @@ namespace LearnCert.Domain.Infrastructure.Persistence
             return _session.Query<T>();
         }
         
+        public IQuery GetNamedQuery(string namedQuery)
+        {
+            return _session.GetNamedQuery(namedQuery);
+        }
+
+        public IQuery ExecuteQuery(string queryString)
+        {
+            return _session.CreateSQLQuery(queryString);
+        }
+
         private void BeginTransaction()
         {
             _transaction = _session.BeginTransaction();
@@ -65,6 +77,7 @@ namespace LearnCert.Domain.Infrastructure.Persistence
                 _transaction = null;
             }
         }
+        
 
     }
 
