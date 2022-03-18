@@ -15,8 +15,9 @@
 - [x] Add migrations database;
 - [x] Configure Unit Test suite;
 - [x] Configure Integration Test suite;
-- [ ] Add feature to connect on test database and clear all data before run the tests;
+- [x] Add feature to connect on test database and clear all data before run the tests;
 - [x] Configure Autofixture;
+- [ ] Add Log tool;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 
