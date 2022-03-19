@@ -6,6 +6,7 @@ using LearnCert.Domain.Infraestructure.Persistence.Migrations;
 using LearnCert.Domain.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace LearnCert.Domain.Infrastructure;
 
@@ -41,6 +42,13 @@ public class StartupDomain
             .BuildServiceProvider(false);
         
         serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
+        
+        var logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
+
+        Services.AddSingleton<ILogger>(_ => logger);
+        
         
         RegisterModules();
     }
