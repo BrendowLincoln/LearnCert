@@ -7,7 +7,6 @@ namespace LearnCert.Domain.Domains.Book;
 public interface IBookReadRepository
 {
     IQueryable<Book> GetBooks();
-    void Update(Book book);
 }
 
 public class BookReadRepository : IBookReadRepository
@@ -28,8 +27,4 @@ public class BookReadRepository : IBookReadRepository
         return _unitOfWork.Query<Book>();
     }
 
-    public void Update(Book book)
-    {
-        _unitOfWork.Merge(book);
-    }
 }

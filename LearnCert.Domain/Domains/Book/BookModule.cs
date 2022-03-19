@@ -8,5 +8,6 @@ public class BookModule : IDependencyInjection
     public void Compose(IServiceCollection services)
     {
         services.AddScoped<IBookReadRepository, BookReadRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
     }
 }
