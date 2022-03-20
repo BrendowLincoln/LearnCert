@@ -4,6 +4,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using LearnCert.Domain.Infraestructure.Persistence.Migrations;
 using LearnCert.Domain.Infrastructure.Persistence;
+using LearnCert.Domain.Infrastructure.Persistence.Connection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -12,28 +13,36 @@ namespace LearnCert.Domain.Infrastructure;
 
 public class StartupDomain
 {
-    private IConfiguration Configuration { get; }
-    private IServiceCollection Services { get; }
+    private readonly IConfiguration _configuration;
+    private readonly IServiceCollection _servicesCollection;
     
-    public StartupDomain(IConfiguration configuration, IServiceCollection services)
+    public StartupDomain(IConfiguration configuration, IServiceCollection servicesCollection)
     {
-        Configuration = configuration;
-        Services = services;
+        _configuration = configuration;
+        _servicesCollection = servicesCollection;
     }
     
     public void Initialize()
     {
-        var connectionString = Configuration.GetConnectionString("DefaultConnection");
+        var logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
+
+        _servicesCollection.AddSingleton<ILogger>(_ => logger);
+        
+        RegisterModules();
+
+        var connectionString = new MySqlConnectionStringFactory(_configuration, logger).ConnectionString;
         
         var sessionFactory = Fluently.Configure()
             .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
             .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
             .BuildSessionFactory();
         
-        Services.AddScoped(_ => sessionFactory.OpenSession());
-        Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
-        var serviceProvider = Services.AddFluentMigratorCore()
+        _servicesCollection.AddScoped(_ => sessionFactory.OpenSession());
+        _servicesCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        var serviceProvider = _servicesCollection.AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
                 .AddMySql5()
                 .WithGlobalConnectionString(connectionString)
@@ -43,14 +52,6 @@ public class StartupDomain
         
         serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
         
-        var logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .CreateLogger();
-
-        Services.AddSingleton<ILogger>(_ => logger);
-        
-        
-        RegisterModules();
     }
     
     private void RegisterModules()
@@ -62,7 +63,7 @@ public class StartupDomain
         dependencyInjectionModules.ForEach(x =>
         {
             var dependencyInjection = (IDependencyInjection) Activator.CreateInstance(x);
-            dependencyInjection.Compose(Services);
+            dependencyInjection.Compose(_servicesCollection);
         });
     }
 }
