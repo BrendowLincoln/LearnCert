@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>7beede8f-922b-4a26-b960-9e21b77dd9a5</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <RootNamespace>LearnCert.Api</RootNamespace>
+    <RootNamespace>LearnCert.Application</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
