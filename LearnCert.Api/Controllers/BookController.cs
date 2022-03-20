@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 public class BookController : ControllerBase
 {
 
+    private readonly IBookRepository _bookRepository;
     private readonly IBookReadRepository _bookReadRepository;
         
-    public BookController(IBookReadRepository bookReadRepository)
+    public BookController(IBookReadRepository bookReadRepository, IBookRepository bookRepository)
     {
         _bookReadRepository = bookReadRepository;
+        _bookRepository = bookRepository;
     }
         
     [HttpGet]
@@ -26,7 +28,7 @@ public class BookController : ControllerBase
         var book = _bookReadRepository.GetBooks().ToList();
         book[0].Title = "Teste";
 
-        _bookReadRepository.Update(book[0]);
+        _bookRepository.Update(book[0]);
 
         return _bookReadRepository.GetBooks().ToList();
     }
