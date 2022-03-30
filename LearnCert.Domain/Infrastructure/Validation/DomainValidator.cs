@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace LearnCert.Domain.Infrastructure.Exception;
+namespace LearnCert.Domain.Infrastructure.Validation;
 
 public interface IDomainValidator<TEntity> : IValidator<TEntity>, IEnumerable<IValidationRule>
 {

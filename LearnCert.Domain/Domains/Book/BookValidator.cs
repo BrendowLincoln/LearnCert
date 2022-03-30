@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LearnCert.Domain.Infrastructure.Exception;
+using LearnCert.Domain.Infrastructure.Validation;
 
 namespace LearnCert.Domain.Domains.Book;
 
