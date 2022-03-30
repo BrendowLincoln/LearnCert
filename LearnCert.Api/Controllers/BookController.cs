@@ -27,11 +27,7 @@ public class BookController : ControllerBase
     public IActionResult Show(Guid id)
     {
         var book = _bookReadRepository.GetById(id);
-        if (book == null)
-        {
-            return NotFound("Book not found");
-        }
-
+        _bookValidator.ValidateAndThrow(book);
         return Ok(book);
     }
     
@@ -64,7 +60,6 @@ public class BookController : ControllerBase
 
         book.Title = request.Title;
         _bookValidator.ValidateAndThrow(book);
-        
         _bookRepository.Update(book);
 
         return Accepted();
@@ -75,14 +70,8 @@ public class BookController : ControllerBase
     public IActionResult Delete(Guid id)
     {
         var book = _bookReadRepository.GetById(id);
-
-        if (book == null)
-        {
-            return NotFound("Book not found");
-        }
-
+        _bookValidator.ValidateDomainAndThrow(book);
         _bookRepository.Delete(book);
-
         return NoContent();
     }
 }
