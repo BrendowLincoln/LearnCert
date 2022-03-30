@@ -2,7 +2,7 @@
 
 public interface IBaseRepository<TEntity>
 {
-    void Save<TEntity>(TEntity entity) where TEntity : class;
+    TEntity Save<TEntity>(TEntity entity) where TEntity : class;
     void Delete<TEntity>(TEntity entity) where TEntity : class;
     TEntity Update<TEntity>(TEntity entity) where TEntity : class;
 }
@@ -17,9 +17,10 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         _unitOfWork = unitOfWork;
     }
     
-    public void Save<TEntity>(TEntity entity) where TEntity : class
+    public TEntity Save<TEntity>(TEntity entity) where TEntity : class
     {
         _unitOfWork.Save(entity);
+        return entity;
     }
 
     public void Delete<TEntity>(TEntity entity) where TEntity : class

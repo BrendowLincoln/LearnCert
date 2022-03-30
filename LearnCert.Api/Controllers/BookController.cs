@@ -1,7 +1,9 @@
+using LearnCert.API.DTO;
 using LearnCert.Domain.Domains.Book;
 using Microsoft.AspNetCore.Mvc;
 
-[Route("Book")]
+[ApiController]
+[Route("[controller]/[action]")]
 public class BookController : ControllerBase
 {
 
@@ -15,21 +17,73 @@ public class BookController : ControllerBase
     }
         
     [HttpGet]
-    [Route("Index")]
-    public IList<Book> Index()
+    [Route("{id:guid}")]
+    public IActionResult Show(Guid id)
     {
-        return _bookReadRepository.GetBooks().ToList();
+        var book = _bookReadRepository.GetById(id);
+        if (book == null)
+        {
+            return NotFound("Book not found");
+        }
+
+        return Ok(book);
+    }
+    
+    [HttpGet]
+    public IActionResult Index()
+    {
+        return Ok(_bookReadRepository.GetBooks().ToList());
+    }
+    
+    [HttpPost]
+    public IActionResult Create([FromBody] BookDTO request)
+    {
+
+        if (request.Title == null)
+        {
+            return BadRequest("Title not informed");
+        } 
+        
+        var book = new Book 
+        {
+            Title = request.Title
+        };
+
+        _bookRepository.Save(book);
+
+        return Created(new Uri($"{Request.Path}/{book.Id}", UriKind.Relative), book);
     }
 
     [HttpPut]
-    public IList<Book> Put()
+    [Route("{id:guid}")]
+    public IActionResult Update(Guid id, [FromBody] BookDTO request)
     {
-        var book = _bookReadRepository.GetBooks().ToList();
-        book[0].Title = "Teste";
+        var book = _bookReadRepository.GetById(id);
 
-        _bookRepository.Update(book[0]);
+        if (book == null)
+        {
+            return NotFound("Book not found");
+        }
 
-        return _bookReadRepository.GetBooks().ToList();
+        book.Title = request.Title;
+        _bookRepository.Update(book);
+
+        return Accepted();
     }
-        
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public IActionResult Delete(Guid id)
+    {
+        var book = _bookReadRepository.GetById(id);
+
+        if (book == null)
+        {
+            return NotFound("Book not found");
+        }
+
+        _bookRepository.Delete(book);
+
+        return NoContent();
+    }
 }
