@@ -1,22 +1,22 @@
 ﻿using LearnCert.Domain.Infrastructure.Persistence;
-using Microsoft.Extensions.Logging;
 using ILogger = Serilog.ILogger;
 
 namespace LearnCert.Domain.Domains.Book;
 
-public interface IBookReadRepository
+public interface IBookReadRepository : IBaseReadRepository<Book>
 {
     Book GetById(Guid id);
     IQueryable<Book> GetBooks();
+    bool Exists(string title);
 }
 
-public class BookReadRepository : IBookReadRepository
+public class BookReadRepository : BaseReadRepository<Book>, IBookReadRepository
 {
 
     private readonly ILogger _logger;
     private readonly IUnitOfWork _unitOfWork;
     
-    public BookReadRepository(IUnitOfWork unitOfWork, ILogger logger)
+    public BookReadRepository(IUnitOfWork unitOfWork, ILogger logger) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;
@@ -33,4 +33,9 @@ public class BookReadRepository : IBookReadRepository
         return _unitOfWork.Query<Book>();
     }
 
+    
+    public bool Exists(string title)
+    {
+        return _unitOfWork.Query<Book>().Any(x => x.Title == title);
+    }
 }

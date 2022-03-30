@@ -18,6 +18,8 @@
 - [x] Add feature to connect on test database and clear all data before run the tests;
 - [x] Configure Autofixture;
 - [x] Add Log tool;
+- [ ] Add Authentication;
+- [x] Add FluentValidation;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
 

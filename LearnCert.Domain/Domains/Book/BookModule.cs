@@ -9,5 +9,6 @@ public class BookModule : IDependencyInjection
     {
         services.AddScoped<IBookReadRepository, BookReadRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IBookValidator, BookValidator>();
     }
 }

@@ -1,3 +1,4 @@
+using FluentValidation;
 using LearnCert.API.DTO;
 using LearnCert.Domain.Domains.Book;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,16 @@ public class BookController : ControllerBase
 
     private readonly IBookRepository _bookRepository;
     private readonly IBookReadRepository _bookReadRepository;
+    private readonly IBookValidator _bookValidator;
         
-    public BookController(IBookReadRepository bookReadRepository, IBookRepository bookRepository)
+    public BookController(
+        IBookReadRepository bookReadRepository, 
+        IBookRepository bookRepository, 
+        IBookValidator bookValidator)
     {
         _bookReadRepository = bookReadRepository;
         _bookRepository = bookRepository;
+        _bookValidator = bookValidator;
     }
         
     [HttpGet]
@@ -38,17 +44,12 @@ public class BookController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] BookDTO request)
     {
-
-        if (request.Title == null)
-        {
-            return BadRequest("Title not informed");
-        } 
-        
         var book = new Book 
         {
             Title = request.Title
         };
-
+        
+        _bookValidator.ValidateAndThrow(book);
         _bookRepository.Save(book);
 
         return Created(new Uri($"{Request.Path}/{book.Id}", UriKind.Relative), book);
@@ -59,13 +60,11 @@ public class BookController : ControllerBase
     public IActionResult Update(Guid id, [FromBody] BookDTO request)
     {
         var book = _bookReadRepository.GetById(id);
-
-        if (book == null)
-        {
-            return NotFound("Book not found");
-        }
+        _bookValidator.ValidateDomainAndThrow(book);
 
         book.Title = request.Title;
+        _bookValidator.ValidateAndThrow(book);
+        
         _bookRepository.Update(book);
 
         return Accepted();
