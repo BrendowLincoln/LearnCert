@@ -2,7 +2,9 @@
 using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using LearnCert.Domain.Domains.Book;
 using LearnCert.Domain.Infraestructure.Persistence.Migrations;
+using LearnCert.Domain.Infrastructure.CQRS;
 using LearnCert.Domain.Infrastructure.Persistence;
 using LearnCert.Domain.Infrastructure.Persistence.Connection;
 using Microsoft.Extensions.Configuration;
@@ -29,8 +31,10 @@ public class StartupDomain
             .CreateLogger();
 
         _servicesCollection.AddSingleton<ILogger>(_ => logger);
-        
+
         RegisterModules();
+        
+        _servicesCollection.AddSingleton<ICommandRouter, CommandRouter>();
 
         var connectionString = new MySqlConnectionStringFactory(_configuration, logger).ConnectionString;
         
@@ -51,6 +55,8 @@ public class StartupDomain
             .BuildServiceProvider(false);
         
         serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
+        
+        _servicesCollection.AddSingleton<IServiceProvider>(_ => serviceProvider);
         
     }
     
