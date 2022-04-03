@@ -2,12 +2,12 @@
 
 namespace LearnCert.Domain.Infrastructure.Validation;
 
-public interface IDomainValidator<TEntity> : IValidator<TEntity>, IEnumerable<IValidationRule>
+public interface IDomainValidator<TAggregate> : IValidator<TAggregate>, IEnumerable<IValidationRule>
 {
-    void ValidateDomainAndThrow(TEntity entity);
+    void ValidateDomainAndThrow(object entity);
 }
 
-public class DomainValidator<TEntity> : AbstractValidator<TEntity>, IDomainValidator<TEntity>
+public class DomainValidator<TAggregate> : AbstractValidator<TAggregate>, IDomainValidator<TAggregate>
 {
 
     private const string NotFound = "NOT_FOUND";
@@ -18,7 +18,7 @@ public class DomainValidator<TEntity> : AbstractValidator<TEntity>, IDomainValid
         CascadeMode = CascadeMode.StopOnFirstFailure;
     }
 
-    public void ValidateDomainAndThrow(TEntity entity)
+    public void ValidateDomainAndThrow(object entity)
     {
         if (entity == null)
         {
