@@ -5,12 +5,12 @@ using NHibernate.Util;
 
 namespace LearnCert.Domain.Infrastructure.Persistence;
 
-public interface IPersistenceService
+public interface IRegisterProviderService
 {
     TAggregate GetAggregate<TState, TAggregate> (TState typeState) where TState : IBaseState where TAggregate : IAggregate<TState>;
     ICommandHandler<TCommand> GetCommandHandler<TCommand>(TCommand command) where TCommand : ICommand;
 }
-public class RegisterProviderService : IPersistenceService
+public class RegisterProviderService : IRegisterProviderService
 {
     private readonly ConcurrentDictionary<Type, Type> _commandHandlerMap = new();
     private readonly ConcurrentDictionary<Type, Type> _aggregateMap = new();
