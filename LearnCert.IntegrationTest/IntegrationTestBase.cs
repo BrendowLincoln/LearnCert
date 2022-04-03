@@ -11,6 +11,10 @@ public class IntegrationTestBase
 {
     public Fixture Fixture { get; set; }
     
+    public IUnitOfWork UnitOfWork { get; set; }
+    
+    public IRegisterProviderService RegisterProviderService { get; set; }
+    
     [SetUp]
     public void SetupBase()
     {
@@ -20,6 +24,9 @@ public class IntegrationTestBase
         var serviceContainerBuilder = new ServiceContainerBuilder();
         Fixture.Behaviors.Add(new SaveEntityBehaviour(serviceContainerBuilder.GetInstance<IUnitOfWork>()));
 
-        ResetDatabase.Init(serviceContainerBuilder.GetInstance<IUnitOfWork>(), "learn_cert_db_test");
+        UnitOfWork = serviceContainerBuilder.GetInstance<IUnitOfWork>();
+        RegisterProviderService = serviceContainerBuilder.GetInstance<IRegisterProviderService>();
+        
+        ResetDatabase.Init(UnitOfWork, "learn_cert_db_test");
     }
 }

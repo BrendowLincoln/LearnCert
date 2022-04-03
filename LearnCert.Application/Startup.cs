@@ -8,11 +8,11 @@ namespace LearnCert.Api;
 
 public class Startup
 {
-    private IConfiguration Configuration { get; }
+    private IConfiguration _configuration { get; }
 
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
     }
 
     public void ConfigureServices(IServiceCollection services)
@@ -38,8 +38,8 @@ public class Startup
             };
         });
         
-        var domainModule = new StartupDomain(Configuration, services);
-        domainModule.Initialize();
+        var app = new ApplicationConstructor(_configuration, services);
+        app.Initialize();
     }
 
 }

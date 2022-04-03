@@ -37,6 +37,11 @@ public class SaveEntityNode : BaseBehaviour
             return _unitOfWork.Merge(entity);
         }
 
+        if (specimen is IAggregate<IBaseState> aggregate)
+        {
+            return _unitOfWork.Merge(aggregate.GetState());
+        }
+
         return specimen;
     }
 

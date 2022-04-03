@@ -2,7 +2,6 @@
 using FluentMigrator.Runner;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using LearnCert.Domain.Domains.Book;
 using LearnCert.Domain.Infraestructure.Persistence.Migrations;
 using LearnCert.Domain.Infrastructure.CQRS;
 using LearnCert.Domain.Infrastructure.Persistence;
@@ -13,12 +12,15 @@ using Serilog;
 
 namespace LearnCert.Domain.Infrastructure;
 
-public class StartupDomain
+public class ApplicationConstructor
 {
     private readonly IConfiguration _configuration;
     private readonly IServiceCollection _servicesCollection;
+    private IServiceProvider _serviceProvider;
+
+    public IServiceProvider ServiceProvider => _serviceProvider;
     
-    public StartupDomain(IConfiguration configuration, IServiceCollection servicesCollection)
+    public ApplicationConstructor(IConfiguration configuration, IServiceCollection servicesCollection)
     {
         _configuration = configuration;
         _servicesCollection = servicesCollection;
@@ -40,7 +42,12 @@ public class StartupDomain
         
         var sessionFactory = Fluently.Configure()
             .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
-            .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
+            .Mappings(m =>
+            {
+                m.FluentMappings.AddFromAssembly(GetType().Assembly);
+                m.HbmMappings.AddFromAssembly(GetType().Assembly);
+
+            })
             .BuildSessionFactory();
         
         _servicesCollection.AddScoped(_ => sessionFactory.OpenSession());
@@ -57,7 +64,7 @@ public class StartupDomain
         serviceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
         
         _servicesCollection.AddSingleton<IServiceProvider>(_ => serviceProvider);
-        
+        _serviceProvider = serviceProvider;
     }
     
     private void RegisterModules()
@@ -72,4 +79,5 @@ public class StartupDomain
             dependencyInjection.Compose(_servicesCollection);
         });
     }
+    
 }

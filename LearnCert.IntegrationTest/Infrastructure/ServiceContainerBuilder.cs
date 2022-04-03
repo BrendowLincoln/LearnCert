@@ -4,9 +4,12 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using LearnCert.Domain.Domains.Book;
 using LearnCert.Domain.Infraestructure.Persistence.Migrations;
+using LearnCert.Domain.Infrastructure;
 using LearnCert.Domain.Infrastructure.Persistence;
+using LearnCert.Domain.Infrastructure.Persistence.Connection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace LearnCert.IntegrationTest;
 
@@ -16,47 +19,26 @@ public interface IServiceContainerBuilder : ISpecimenBuilder
 }
 public class ServiceContainerBuilder : IServiceContainerBuilder
 {
-    private static IServiceCollection Services;
+    private static IServiceCollection _serviceCollection;
     private static IServiceProvider ServiceProvider;
-    private static IConfiguration Configuration;
+    private static IConfiguration _configuration;
+
+    private readonly ApplicationConstructor _applicationConstructor;
     
     public ServiceContainerBuilder()
     {
-        Services = new ServiceCollection();
+        _serviceCollection = new ServiceCollection();
         
         var config = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json");
-        Configuration = config.Build();
+        _configuration = config.Build();
         
-        var connectionString = Configuration.GetConnectionString("DefaultConnection");
-        
-        var sessionFactory = Fluently.Configure()
-            .Database(MySQLConfiguration.Standard.ConnectionString(connectionString))
-            .Mappings(m =>
-            {
-                m.FluentMappings.AddFromAssembly(typeof(BookMap).Assembly);
-                m.HbmMappings.AddFromAssembly(typeof(BookMap).Assembly);
-            })
-            .BuildSessionFactory();
-
-        Services.AddScoped(_ => sessionFactory.OpenSession());
-        Services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
-        Services.AddFluentMigratorCore()
-            .ConfigureRunner(rb => rb
-                .AddMySql5()
-                .WithGlobalConnectionString(connectionString)
-                .ScanIn(typeof(CreateBookTable).Assembly).For.Migrations())
-            .AddLogging(lb => lb.AddFluentMigratorConsole());
-        
-        ServiceProvider = Services.BuildServiceProvider();
-
-        ServiceProvider.GetRequiredService<IMigrationRunner>().MigrateUp();
-        
+        _applicationConstructor = new ApplicationConstructor(_configuration, _serviceCollection);
+        _applicationConstructor.Initialize();
     }
 
     public TServ GetInstance<TServ>()
     {
-        return ServiceProvider.GetService<TServ>();
+        return _applicationConstructor.ServiceProvider.GetService<TServ>();
     }
     
     public object Create(object request, ISpecimenContext context)
@@ -65,7 +47,7 @@ public class ServiceContainerBuilder : IServiceContainerBuilder
         {
             if (request is Type type)
             {
-                return ServiceProvider.GetService(type);
+                return _applicationConstructor.ServiceProvider.GetService(type);
             }
         }
         catch (Exception e)
