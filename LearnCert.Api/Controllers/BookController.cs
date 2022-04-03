@@ -53,9 +53,9 @@ public class BookController : ControllerBase
     }
     
     [HttpDelete]
-    [Route("{id}")]
-    public IActionResult Delete(Guid id)
+    public IActionResult Delete([FromBody] DeleteBookCommand command)
     {
+        _commandRouter.Send(command);
         return NoContent();
     }
 }
