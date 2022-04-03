@@ -2,9 +2,9 @@ using FluentNHibernate.Mapping;
 
 namespace LearnCert.Domain.Domains.Book
 {
-    public class BookMap : ClassMap<BookState>
+    public class BookStateMap : ClassMap<BookState>
     {
-        public BookMap()
+        public BookStateMap()
         {
             Table("Book");
             

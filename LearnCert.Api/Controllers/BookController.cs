@@ -1,6 +1,5 @@
-using FluentValidation;
-using LearnCert.API.DTO;
 using LearnCert.Domain.Domains.Book;
+using LearnCert.Domain.Domains.Book.Read.QueryHandlers;
 using LearnCert.Domain.Infrastructure.CQRS;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,30 +8,26 @@ using Microsoft.AspNetCore.Mvc;
 public class BookController : ControllerBase
 {
 
-    private readonly IBookWriteRepository _bookWriteRepository;
-    private readonly IBookReadRepository _bookReadRepository;
     private readonly IBookValidator _bookValidator;
     private readonly ICommandRouter _commandRouter;
+    private readonly IBookQueryHandler _bookQueryHandler;
         
     public BookController(
-        IBookReadRepository bookReadRepository, 
-        IBookWriteRepository bookWriteRepository, 
         IBookValidator bookValidator, 
-        ICommandRouter commandRouter)
+        ICommandRouter commandRouter, 
+        IBookQueryHandler bookQueryHandler)
     {
-        _bookReadRepository = bookReadRepository;
-        _bookWriteRepository = bookWriteRepository;
         _bookValidator = bookValidator;
         
         _commandRouter = commandRouter;
-        
+        _bookQueryHandler = bookQueryHandler;
     }
         
     [HttpGet]
     [Route("{id:guid}")]
     public IActionResult Show(Guid id)
     {
-        var book = _bookReadRepository.GetById(id);
+        var book = _bookQueryHandler.GetById(id);
         _bookValidator.CustomValidateDomainAndThrow(book);
         return Ok(book);
     }
@@ -40,7 +35,7 @@ public class BookController : ControllerBase
     [HttpGet]
     public IActionResult Index()
     {
-        return Ok(_bookReadRepository.GetBooks().ToList());
+        return Ok(_bookQueryHandler.Query());
     }
     
     [HttpPost]
@@ -61,9 +56,6 @@ public class BookController : ControllerBase
     [Route("{id}")]
     public IActionResult Delete(Guid id)
     {
-        var book = _bookReadRepository.GetById(id);
-        _bookValidator.CustomValidateDomainAndThrow(book);
-        _bookWriteRepository.Delete(book);
         return NoContent();
     }
 }
