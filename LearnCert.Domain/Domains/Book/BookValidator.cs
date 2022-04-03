@@ -3,11 +3,11 @@ using LearnCert.Domain.Infrastructure.Validation;
 
 namespace LearnCert.Domain.Domains.Book;
 
-public interface IBookValidator : IDomainValidator<Book>
+public interface IBookValidator : IDomainValidator<IBookAggregate>
 {
 }
 
-public class BookValidator : DomainValidator<Book>, IBookValidator
+public class BookValidator : DomainValidator<IBookAggregate>, IBookValidator
 {
 
     private readonly IBookReadRepository _bookReadRepository;
@@ -16,7 +16,7 @@ public class BookValidator : DomainValidator<Book>, IBookValidator
     {
         _bookReadRepository = bookReadRepository;
 
-        RuleFor(x => x.Title)
+        RuleFor(x => x.GetState().Title)
             .NotEmpty().WithMessage(BookExceptionCodes.TitleNotInformed)
             .Length(2, 10).WithMessage(BookExceptionCodes.TitleMustBeGreaterThanTwoAndLessThanFifty)
             .Must(NotUsed).WithMessage(BookExceptionCodes.TitleAlreadyUsed);
@@ -27,7 +27,7 @@ public class BookValidator : DomainValidator<Book>, IBookValidator
         return !_bookReadRepository.Exists(title);
     }
 
-    public void ValidateDomainAndThrow(Book book)
+    public void ValidateDomainAndThrow(object book)
     {
         if (book == null)
         {
