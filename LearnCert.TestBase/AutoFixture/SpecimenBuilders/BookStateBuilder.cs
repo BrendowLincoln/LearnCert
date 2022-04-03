@@ -6,7 +6,7 @@ using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.TestBase.AutoFixture.SpecimenBuilders;
 
-internal class BookBuilder : BaseBuilder
+internal class BookStateBuilder : BaseBuilder
 {
     
     protected override Type AppliableTo()
