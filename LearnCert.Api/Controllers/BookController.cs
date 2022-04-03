@@ -1,6 +1,7 @@
 using FluentValidation;
 using LearnCert.API.DTO;
 using LearnCert.Domain.Domains.Book;
+using LearnCert.Domain.Infrastructure.CQRS;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -8,18 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 public class BookController : ControllerBase
 {
 
-    private readonly IBookRepository _bookRepository;
+    private readonly IBookWriteRepository _bookWriteRepository;
     private readonly IBookReadRepository _bookReadRepository;
     private readonly IBookValidator _bookValidator;
+    private readonly ICommandRouter _commandRouter;
         
     public BookController(
         IBookReadRepository bookReadRepository, 
-        IBookRepository bookRepository, 
-        IBookValidator bookValidator)
+        IBookWriteRepository bookWriteRepository, 
+        IBookValidator bookValidator, 
+        ICommandRouter commandRouter)
     {
         _bookReadRepository = bookReadRepository;
-        _bookRepository = bookRepository;
+        _bookWriteRepository = bookWriteRepository;
         _bookValidator = bookValidator;
+        
+        _commandRouter = commandRouter;
+        
     }
         
     [HttpGet]
@@ -27,7 +33,7 @@ public class BookController : ControllerBase
     public IActionResult Show(Guid id)
     {
         var book = _bookReadRepository.GetById(id);
-        _bookValidator.ValidateAndThrow(book);
+        _bookValidator.ValidateDomainAndThrow(book);
         return Ok(book);
     }
     
@@ -38,30 +44,16 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Create([FromBody] BookDTO request)
+    public IActionResult Create([FromBody] CreateBookCommand command)
     {
-        var book = new Book 
-        {
-            Title = request.Title
-        };
-        
-        _bookValidator.ValidateAndThrow(book);
-        _bookRepository.Save(book);
-
-        return Created(new Uri($"{Request.Path}/{book.Id}", UriKind.Relative), book);
+        _commandRouter.Send(command);
+        return Created(new Uri($"{Request.Path}/{command.Id}", UriKind.Relative), command);
     }
 
     [HttpPut]
-    [Route("{id:guid}")]
-    public IActionResult Update(Guid id, [FromBody] BookDTO request)
+    public IActionResult Update([FromBody] ChangeBookCommand command)
     {
-        var book = _bookReadRepository.GetById(id);
-        _bookValidator.ValidateDomainAndThrow(book);
-
-        book.Title = request.Title;
-        _bookValidator.ValidateAndThrow(book);
-        _bookRepository.Update(book);
-
+        _commandRouter.Send(command);
         return Accepted();
     }
     
@@ -71,7 +63,7 @@ public class BookController : ControllerBase
     {
         var book = _bookReadRepository.GetById(id);
         _bookValidator.ValidateDomainAndThrow(book);
-        _bookRepository.Delete(book);
+        _bookWriteRepository.Delete(book);
         return NoContent();
     }
 }
