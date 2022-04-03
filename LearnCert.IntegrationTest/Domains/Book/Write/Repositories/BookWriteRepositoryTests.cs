@@ -50,4 +50,18 @@ public class BookWriteRepositoryTests : IntegrationTestBase
         result.GetState().Title.Should().Be(book.GetState().Title);
         previousTitle.Should().NotBe(result.GetState().Title);
     }
+    
+    [Test]
+    public void ShouldDeleteBookState()
+    {
+        // Given
+        var book = Fixture.Create<BookAggregate>();
+        
+        // When
+        _sut.Delete(book);
+        var result = _sut.GetById(book.Id);
+
+        // Then
+        result.Should().BeNull();
+    }
 }

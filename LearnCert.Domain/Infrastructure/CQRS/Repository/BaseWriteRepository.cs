@@ -24,6 +24,9 @@ public abstract class BaseWriteRepository<TState, TAggregate> : IBaseWriteReposi
     public TAggregate GetById(Guid aggregateId)
     {
         var state = _unitOfWork.GetById<TState>(aggregateId);
+        if (state == null) 
+            return (TAggregate) (IAggregate<IBaseState>) null;
+        
         var aggregate = _registerProviderService.GetAggregate<TState, TAggregate>(state);
         return aggregate;
     }
