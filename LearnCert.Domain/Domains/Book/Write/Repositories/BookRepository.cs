@@ -2,12 +2,12 @@
 
 namespace LearnCert.Domain.Domains.Book;
 
-public interface IBookWriteRepository : IBaseWriteRepository<Book, IBookAggregate>
+public interface IBookWriteRepository : IBaseWriteRepository<BookState, IBookAggregate>
 {
     
 }
 
-public class BookWriteRepository : BaseWriteRepository<Book, IBookAggregate>, IBookWriteRepository
+public class BookWriteRepository : BaseWriteRepository<BookState, IBookAggregate>, IBookWriteRepository
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRegisterProviderService _registerProviderService;

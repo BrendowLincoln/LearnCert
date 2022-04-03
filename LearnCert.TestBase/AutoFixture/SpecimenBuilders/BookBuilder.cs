@@ -11,12 +11,12 @@ internal class BookBuilder : BaseBuilder
     
     protected override Type AppliableTo()
     {
-        return typeof(Book);
+        return typeof(BookState);
     }
 
     protected override object CreateNew(ISpecimenContext context)
     {
-        return new Book()
+        return new BookState()
         {
             Id = context.Create<Guid>(),
             Title = context.Create<string>()

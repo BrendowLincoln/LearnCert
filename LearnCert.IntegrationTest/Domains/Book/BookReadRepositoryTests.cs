@@ -11,7 +11,7 @@ public class BookReadRepositoryTests : IntegrationTestBase
     public void ShouldCreateABook()
     {
         // Given
-        var book = Fixture.Create<Domain.Domains.Book.Book>();
+        var book = Fixture.Create<Domain.Domains.Book.BookState>();
         
         // When
         

@@ -2,7 +2,7 @@ using FluentNHibernate.Mapping;
 
 namespace LearnCert.Domain.Domains.Book
 {
-    public class BookMap : ClassMap<Book>
+    public class BookMap : ClassMap<BookState>
     {
         public BookMap()
         {

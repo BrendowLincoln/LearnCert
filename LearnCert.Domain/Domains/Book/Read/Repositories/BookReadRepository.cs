@@ -3,14 +3,14 @@ using ILogger = Serilog.ILogger;
 
 namespace LearnCert.Domain.Domains.Book;
 
-public interface IBookReadRepository : IBaseReadRepository<Book>
+public interface IBookReadRepository : IBaseReadRepository<BookState>
 {
-    Book GetById(Guid id);
-    IQueryable<Book> GetBooks();
+    BookState GetById(Guid id);
+    IQueryable<BookState> GetBooks();
     bool Exists(string title);
 }
 
-public class BookReadRepository : BaseReadRepository<Book>, IBookReadRepository
+public class BookReadRepository : BaseReadRepository<BookState>, IBookReadRepository
 {
 
     private readonly ILogger _logger;
@@ -22,20 +22,20 @@ public class BookReadRepository : BaseReadRepository<Book>, IBookReadRepository
         _logger = logger;
     }
 
-    public Book GetById(Guid id)
+    public BookState GetById(Guid id)
     {
-        return _unitOfWork.GetById<Book>(id);
+        return _unitOfWork.GetById<BookState>(id);
     }
 
-    public IQueryable<Book> GetBooks()
+    public IQueryable<BookState> GetBooks()
     {
         _logger.Information("Getting books");
-        return _unitOfWork.Query<Book>();
+        return _unitOfWork.Query<BookState>();
     }
 
     
     public bool Exists(string title)
     {
-        return _unitOfWork.Query<Book>().Any(x => x.Title == title);
+        return _unitOfWork.Query<BookState>().Any(x => x.Title == title);
     }
 }

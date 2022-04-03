@@ -2,22 +2,22 @@
 
 namespace LearnCert.Domain.Domains.Book;
 
-public interface IBookAggregate : IAggregate<Book>
+public interface IBookAggregate : IAggregate<BookState>
 {
     void Change(ChangeBookCommand cmd);
 }
 
-public class BookAggregate: BaseAggregate<Book>, IBookAggregate
+public class BookAggregate: BaseAggregate<BookState>, IBookAggregate
 {
 
-    public BookAggregate(Book state)
+    public BookAggregate(BookState state)
     {
         State = state;
     }
 
     public BookAggregate(CreateBookCommand cmd)
     {
-        State = new Book
+        State = new BookState
         {
             Id = cmd.Id,
             Title = cmd.Title

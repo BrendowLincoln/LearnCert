@@ -11,7 +11,7 @@ public class BookTests : UnitTestBase
     public void ShouldBeTrue()
     {
         // Given
-        var book = Fixture.Create<Domain.Domains.Book.Book>();
+        var book = Fixture.Create<Domain.Domains.Book.BookState>();
         
         // When
         var result = 1;
