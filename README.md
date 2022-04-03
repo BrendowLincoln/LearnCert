@@ -22,7 +22,7 @@
 - [x] Add FluentValidation;
 - [ ] Create React app with Vite;
 - [ ] Add React app docker-compose;
-- [ ] Implement CQRS pattern;
+- [x] Implement CQRS pattern;
 
 ### Build and run app using Docker
 
