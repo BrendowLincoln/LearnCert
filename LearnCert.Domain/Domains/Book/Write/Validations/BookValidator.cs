@@ -18,7 +18,7 @@ public class BookValidator : DomainValidator<IBookAggregate>, IBookValidator
 
         RuleFor(x => x.GetState().Title)
             .NotEmpty().WithMessage(BookExceptionCodes.TitleNotInformed)
-            .Length(2, 10).WithMessage(BookExceptionCodes.TitleMustBeGreaterThanTwoAndLessThanFifty)
+            .Length(2, 10).WithMessage(BookExceptionCodes.TitleMustBeGreaterThanTwoAndLessThanTen)
             .Must(NotUsed).WithMessage(BookExceptionCodes.TitleAlreadyUsed);
     }
 
@@ -27,11 +27,11 @@ public class BookValidator : DomainValidator<IBookAggregate>, IBookValidator
         return !_bookReadRepository.Exists(title);
     }
 
-    public void ValidateDomainAndThrow(object book)
+    public void CustomValidateDomainAndThrow(object aggregate)
     {
-        if (book == null)
+        if (aggregate == null)
         {
-            throw new BookDomainException(BookExceptionCodes.BookNotFound);
+            throw new DomainException<IBookAggregate>(BookExceptionCodes.BookNotFound);
         }
     }
 }

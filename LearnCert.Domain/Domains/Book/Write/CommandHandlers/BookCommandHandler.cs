@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LearnCert.Domain.Infrastructure.CQRS;
+using LearnCert.Domain.Infrastructure.Validation;
 
 namespace LearnCert.Domain.Domains.Book;
 
@@ -18,15 +19,16 @@ public class BookCommandHandler : ICommandHandler<CreateBookCommand>, ICommandHa
     public void Handle(CreateBookCommand cmd)
     {
         var aggregate = new BookAggregate(cmd);
-        _bookValidator.ValidateAndThrow(aggregate);
+        _bookValidator.ValidateDomainAndThrow(aggregate);
         _bookWriteRepository.Save(aggregate);
     }
 
     public void Handle(ChangeBookCommand cmd)
     {
         var aggregate = _bookWriteRepository.GetById(cmd.Id);
-        _bookValidator.ValidateDomainAndThrow(aggregate);
+        _bookValidator.CustomValidateDomainAndThrow(aggregate);
         aggregate.Change(cmd);
+        _bookValidator.ValidateDomainAndThrow(aggregate);
         _bookWriteRepository.Save(aggregate);
     }
 }

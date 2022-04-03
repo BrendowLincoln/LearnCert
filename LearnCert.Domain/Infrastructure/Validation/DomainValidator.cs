@@ -4,7 +4,7 @@ namespace LearnCert.Domain.Infrastructure.Validation;
 
 public interface IDomainValidator<TAggregate> : IValidator<TAggregate>, IEnumerable<IValidationRule>
 {
-    void ValidateDomainAndThrow(object entity);
+    void CustomValidateDomainAndThrow(object entity);
 }
 
 public class DomainValidator<TAggregate> : AbstractValidator<TAggregate>, IDomainValidator<TAggregate>
@@ -17,12 +17,12 @@ public class DomainValidator<TAggregate> : AbstractValidator<TAggregate>, IDomai
         // Break on first error message
         CascadeMode = CascadeMode.StopOnFirstFailure;
     }
-
-    public void ValidateDomainAndThrow(object entity)
+    
+    public void CustomValidateDomainAndThrow(object entity)
     {
         if (entity == null)
         {
-            throw new DomainException(NotFound);
+            throw new DomainException<TAggregate>(NotFound);
         }
     }
 

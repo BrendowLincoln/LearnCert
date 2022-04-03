@@ -33,7 +33,7 @@ public class BookController : ControllerBase
     public IActionResult Show(Guid id)
     {
         var book = _bookReadRepository.GetById(id);
-        _bookValidator.ValidateDomainAndThrow(book);
+        _bookValidator.CustomValidateDomainAndThrow(book);
         return Ok(book);
     }
     
@@ -62,7 +62,7 @@ public class BookController : ControllerBase
     public IActionResult Delete(Guid id)
     {
         var book = _bookReadRepository.GetById(id);
-        _bookValidator.ValidateDomainAndThrow(book);
+        _bookValidator.CustomValidateDomainAndThrow(book);
         _bookWriteRepository.Delete(book);
         return NoContent();
     }
