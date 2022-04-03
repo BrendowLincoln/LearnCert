@@ -4,7 +4,10 @@ using LearnCert.Domain.Infrastructure.Validation;
 
 namespace LearnCert.Domain.Domains.Book;
 
-public class BookCommandHandler : ICommandHandler<CreateBookCommand>, ICommandHandler<ChangeBookCommand>
+public class BookCommandHandler : 
+    ICommandHandler<CreateBookCommand>, 
+    ICommandHandler<ChangeBookCommand>,
+    ICommandHandler<DeleteBookCommand>
 {
     
     private readonly IBookWriteRepository _bookWriteRepository;
@@ -30,5 +33,12 @@ public class BookCommandHandler : ICommandHandler<CreateBookCommand>, ICommandHa
         aggregate.Change(cmd);
         _bookValidator.ValidateDomainAndThrow(aggregate);
         _bookWriteRepository.Save(aggregate);
+    }
+
+    public void Handle(DeleteBookCommand cmd)
+    {
+        var aggregate = _bookWriteRepository.GetById(cmd.Id);
+        _bookValidator.CustomValidateDomainAndThrow(aggregate);
+        _bookWriteRepository.Delete(aggregate);
     }
 }

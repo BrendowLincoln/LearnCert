@@ -132,4 +132,37 @@ public class BookCommandHandlerTests : UnitTestBase
         action.Should().Throw<DomainException<IBookAggregate>>().WithMessage(BookExceptionCodes.TitleAlreadyUsed);
         _bookWriteRepository.Received(0).Save(Arg.Any<BookAggregate>());
     }
+    
+    [Test]
+    public void ShouldHandleDeleteBookCommand()
+    {
+        // Given
+        var aggregate = Fixture.Create<BookAggregate>();
+        var cmd = Fixture.Create<DeleteBookCommand>();
+        cmd.Id = aggregate.Id;
+        
+        _bookWriteRepository.GetById(cmd.Id).Returns(aggregate);
+        
+        // When
+        _sut.Handle(cmd);
+        
+        // Then
+        _bookWriteRepository.Received(1).Delete(Arg.Is<BookAggregate>(x => x.Id == cmd.Id));
+    }
+    
+    [Test]
+    public void ShouldHandleDeleteBookCommandWithBookNotFound()
+    {
+        // Given
+        var cmd = Fixture.Create<DeleteBookCommand>();
+
+        _bookWriteRepository.GetById(cmd.Id).ReturnsNull();
+        
+        // When
+        Action action = () => _sut.Handle(cmd);
+        
+        // Then
+        action.Should().Throw<DomainException<IBookAggregate>>().WithMessage(BookExceptionCodes.BookNotFound);
+        _bookWriteRepository.Received(0).Save(Arg.Any<BookAggregate>());
+    }
 }
