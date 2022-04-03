@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LearnCert.Domain.Domains.Book.Read.QueryHandlers;
 using LearnCert.Domain.Infrastructure.Validation;
 
 namespace LearnCert.Domain.Domains.Book;
@@ -10,11 +11,11 @@ public interface IBookValidator : IDomainValidator<IBookAggregate>
 public class BookValidator : DomainValidator<IBookAggregate>, IBookValidator
 {
 
-    private readonly IBookReadRepository _bookReadRepository;
+    private readonly IBookQueryHandler _bookQueryHandler;
 
-    public BookValidator(IBookReadRepository bookReadRepository)
+    public BookValidator(IBookQueryHandler bookQueryHandler)
     {
-        _bookReadRepository = bookReadRepository;
+        _bookQueryHandler = bookQueryHandler;
 
         RuleFor(x => x.GetState().Title)
             .NotEmpty().WithMessage(BookExceptionCodes.TitleNotInformed)
@@ -24,7 +25,7 @@ public class BookValidator : DomainValidator<IBookAggregate>, IBookValidator
 
     private bool NotUsed(string title)
     {
-        return !_bookReadRepository.Exists(title);
+        return !_bookQueryHandler.Exists(title);
     }
 
     public void CustomValidateDomainAndThrow(object aggregate)

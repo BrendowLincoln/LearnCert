@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using LearnCert.Domain.Domains.Book;
+using LearnCert.Domain.Domains.Book.Read.QueryHandlers;
 using LearnCert.Domain.Infrastructure.Validation;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
@@ -12,7 +13,7 @@ public class BookCommandHandlerTests : UnitTestBase
 {
 
     private IBookWriteRepository _bookWriteRepository;
-    private IBookReadRepository _bookReadRepository;
+    private IBookQueryHandler _bookQueryHandler;
     private IBookValidator _bookValidator;
     private BookCommandHandler _sut;
 
@@ -20,8 +21,8 @@ public class BookCommandHandlerTests : UnitTestBase
     public void BookCommandHandlerTestsSetUp()
     {
         _bookWriteRepository = Substitute.For<IBookWriteRepository>();
-        _bookReadRepository = Substitute.For<IBookReadRepository>();
-        _bookValidator = new BookValidator(_bookReadRepository);
+        _bookQueryHandler = Substitute.For<IBookQueryHandler>();
+        _bookValidator = new BookValidator(_bookQueryHandler);
         
         _sut = new BookCommandHandler(_bookWriteRepository, _bookValidator);
     }
@@ -122,7 +123,7 @@ public class BookCommandHandlerTests : UnitTestBase
         var cmd = Fixture.Create<CreateBookCommand>();
         cmd.Title = "hello";
         
-        _bookReadRepository.Exists(cmd.Title).Returns(true);
+        _bookQueryHandler.Exists(cmd.Title).Returns(true);
         
         // When
         Action action = () => _sut.Handle(cmd);

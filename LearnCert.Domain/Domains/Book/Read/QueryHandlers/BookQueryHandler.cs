@@ -6,7 +6,7 @@ namespace LearnCert.Domain.Domains.Book.Read.QueryHandlers;
 
 public interface IBookQueryHandler : IBaseQueryHandler<BookModel>
 {
-   
+    bool Exists(string title);
 }
 
 public class BookQueryHandler : BaseQueryHandler<BookModel>, IBookQueryHandler
@@ -18,4 +18,8 @@ public class BookQueryHandler : BaseQueryHandler<BookModel>, IBookQueryHandler
         _unitOfWork = unitOfWork;
     }
 
+    public bool Exists(string title)
+    {
+        return _unitOfWork.Query<BookModel>().Any(x => x.Title == title);
+    }
 }
