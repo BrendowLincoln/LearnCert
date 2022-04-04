@@ -2,7 +2,11 @@
 
 > .NET 6 WEB API
 
-### Checklist
+<details>
+<summary>
+  <strong>Checklist</strong>
+</summary>
+<br />
 
 - [x] Create .NET 6 project;
 - [x] Add SQL Server Connection (*temporary*);
@@ -24,6 +28,8 @@
 - [ ] Add React app docker-compose;
 - [x] Implement CQRS pattern;
 
+</details>
+
 ### Build and run app using Docker
 
 ````bash
@@ -40,6 +46,15 @@ docker run -d -p 8080:5000 --name learn-cert-api-container learn-cert-api-image
 #powershell
 docker-compose rm -f -s | docker-compose build | docker-compose up -d
 ````
+
+### Solution Schema
+
+<img src="https://github.com/mcosta21/LearnCert/blob/main/.github/solution.png"> 
+
+
+### CQRS Architecture Pattern
+
+<img src="https://github.com/mcosta21/LearnCert/blob/main/.github/cqrs-structure.png"> 
 
 ### Beekeeper Studio
 [Download](https://www.beekeeperstudio.io/get)
