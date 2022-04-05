@@ -48,7 +48,7 @@ public class RegisterProviderService : IRegisterProviderService
 
         foreach (var commandHandler in commandHandlers)
         {
-            var commands = commandHandlers.Select(x => x.GetInterfaces().Where(c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(ICommandHandler<>))).FirstOrDefault().ToList();
+            var commands = commandHandler.GetInterfaces().Where(c => c.IsGenericType && c.GetGenericTypeDefinition() == typeof(ICommandHandler<>)).ToList();
 
             commands.ForEach(x =>
             {
