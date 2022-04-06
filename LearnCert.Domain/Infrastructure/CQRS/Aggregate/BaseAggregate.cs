@@ -4,7 +4,7 @@ public abstract class BaseAggregate<TState> : IAggregate<TState> where TState : 
 {
     protected TState State;
 
-    public Guid Id => State.Id;
+    public virtual Guid Id => State.Id;
     
     public TState GetState()
     {
