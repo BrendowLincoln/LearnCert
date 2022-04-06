@@ -1,9 +1,6 @@
 ﻿using AutoFixture;
 using AutoFixture.Kernel;
-using LearnCert.Domain;
-using LearnCert.Domain.Domains.Book;
 using LearnCert.Domain.Domains.Certification.Write.States;
-using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.TestBase.AutoFixture.SpecimenBuilders;
 
@@ -36,7 +33,7 @@ internal class CertificationStateBuilder : BaseBuilder
             {
                 Id = context.Create<Guid>(),
                 Certification = certification, 
-                Order = context.Create<int>(),
+                OrderExibition = context.Create<int>(),
                 Title = context.Create<string>()
             });
         }
