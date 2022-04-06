@@ -11,9 +11,9 @@ public class ModuleStateMap : ClassMap<ModuleState>
             
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Title);
-        Map(x => x.Order);
+        Map(x => x.OrderExibition);
 
-        Map(x => x.CertificationId);
+        References(x => x.Certification, "CertificationId");
         
         HasMany(x => x.Questions)
             .KeyColumn("ModuleId")

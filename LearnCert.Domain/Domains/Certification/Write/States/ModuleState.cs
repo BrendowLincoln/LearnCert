@@ -9,20 +9,18 @@ public class ModuleState : BaseState
     {
     }
     
-    public ModuleState(ModuleValueObject module, Guid certificationId)
+    public ModuleState(ModuleValueObject module, CertificationState certification)
     {
         Id = module.Id;
         Title = module.Title;
-        Order = module.Order;
-        CertificationId = certificationId;
-        Questions = module.Questions.Select(x => new QuestionState(x)).ToList();
+        OrderExibition = module.OrderExibition;
+        Certification = certification;
+        Questions = module.Questions.Select(x => new QuestionState(x, this)).ToList();
     }
 
     public virtual Guid Id { get; set; }
     public virtual string Title { get; set; }
-    public virtual int Order { get; set; }
-    
-    public virtual Guid CertificationId { get; set; }
+    public virtual int OrderExibition { get; set; }
     public virtual IList<QuestionState> Questions { get; set; }
-
+    public virtual CertificationState Certification { get; set; }
 }

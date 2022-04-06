@@ -36,7 +36,7 @@ public class CreateCertitication  : Migration
         Create.Table("Module")
             .WithColumn("Id").AsUUID().PrimaryKey()
             .WithColumn("Title").AsString().NotNullable()
-            .WithColumn("Order").AsInt32().NotNullable()
+            .WithColumn("OrderExibition").AsInt32().NotNullable()
             .WithColumn("CertificationId").AsUUID().NotNullable();
         
         Create.ForeignKey("FK_Question_Module")
