@@ -12,6 +12,9 @@ public static class ResetDatabase
         namedQuery.SetParameter("schema", database);
         
         var commands = namedQuery.List<string>().ToList();
+        unitOfWork.ExecuteQuery("SET FOREIGN_KEY_CHECKS = 0;").ExecuteUpdate();
         unitOfWork.ExecuteQuery(string.Join(";", commands)).ExecuteUpdate();
+        unitOfWork.ExecuteQuery("SET FOREIGN_KEY_CHECKS = 1;").ExecuteUpdate();
+
     }
 }
