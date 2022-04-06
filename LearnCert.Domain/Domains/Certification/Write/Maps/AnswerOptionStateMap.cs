@@ -13,5 +13,8 @@ public class AnswerOptionStateMap : ClassMap<AnswerOptionState>
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Description);
         Map(x => x.IsCorrect);
+        
+        References(x => x.QuestionDescription, "QuestionDescriptionId");
+
     }
 }

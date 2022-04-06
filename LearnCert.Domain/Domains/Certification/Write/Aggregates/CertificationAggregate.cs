@@ -23,6 +23,6 @@ public class CertificationAggregate : BaseAggregate<CertificationState>, ICertif
             Id = cmd.Id,
             Title = cmd.Title
         };
-        State.Modules = cmd.Modules.Select(x => new ModuleState(x, cmd.Id)).ToList();
+        State.Modules = cmd.Modules.Select(x => new ModuleState(x, State)).ToList();
     }
 }

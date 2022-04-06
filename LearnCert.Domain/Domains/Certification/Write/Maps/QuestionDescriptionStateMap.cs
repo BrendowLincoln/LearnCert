@@ -14,6 +14,9 @@ public class QuestionDescriptionStateMap : ClassMap<QuestionDescriptionState>
         Map(x => x.Description);
         Map(x => x.LanguageType).CustomType<LanguageType>();
 
+        References(x => x.Question, "QuestionId");
+
+        
         HasMany(x => x.AnswerOptions)
             .KeyColumn("QuestionDescriptionId")
             .Cascade.AllDeleteOrphan();

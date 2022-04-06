@@ -9,16 +9,18 @@ public class QuestionDescriptionState : BaseState
     {
     }
     
-    public QuestionDescriptionState(QuestionDescriptionValueObject questionDescription)
+    public QuestionDescriptionState(QuestionDescriptionValueObject questionDescription, QuestionState question)
     {
         Id = questionDescription.Id;
         Description = questionDescription.Description;
         LanguageType = questionDescription.LanguageType;
-        AnswerOptions = questionDescription.AnswerOptions.Select(x => new AnswerOptionState(x)).ToList();
+        Question = question;
+        AnswerOptions = questionDescription.AnswerOptions.Select(x => new AnswerOptionState(x, this)).ToList();
     }
 
     public virtual Guid Id { get; set; }
     public virtual string Description { get; set; }
     public virtual LanguageType LanguageType { get; set; }
     public virtual IList<AnswerOptionState> AnswerOptions { get; set; }
+    public virtual QuestionState Question { get; set; }
 }

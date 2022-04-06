@@ -9,14 +9,16 @@ public class AnswerOptionState : BaseState
     {
     }
     
-    public AnswerOptionState(AnswerOptionValueObject answerOption)
+    public AnswerOptionState(AnswerOptionValueObject answerOption, QuestionDescriptionState questionDescription)
     {
         Id = answerOption.Id;
         Description = answerOption.Description;
         IsCorrect = answerOption.IsCorrect;
+        QuestionDescription = questionDescription;
     }
 
     public virtual Guid Id { get; set; }
     public virtual string Description { get; set; }
     public virtual bool IsCorrect { get; set; }
+    public virtual QuestionDescriptionState QuestionDescription { get; set; }
 }
