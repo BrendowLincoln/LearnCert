@@ -13,14 +13,14 @@ public class ModuleState : BaseState
     {
         Id = module.Id;
         Title = module.Title;
-        OrderExibition = module.OrderExibition;
+        Code = module.Code;
         Certification = certification;
         Questions = module.Questions.Select(x => new QuestionState(x, this)).ToList();
     }
 
     public virtual Guid Id { get; set; }
     public virtual string Title { get; set; }
-    public virtual int OrderExibition { get; set; }
+    public virtual int Code { get; set; }
     public virtual IList<QuestionState> Questions { get; set; }
     public virtual CertificationState Certification { get; set; }
 }

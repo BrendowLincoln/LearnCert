@@ -11,7 +11,7 @@ public class ModuleStateMap : ClassMap<ModuleState>
             
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Title);
-        Map(x => x.OrderExibition);
+        Map(x => x.Code);
 
         References(x => x.Certification, "CertificationId");
         

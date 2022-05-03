@@ -4,7 +4,7 @@ public class ModuleValueObject
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
-    public int OrderExibition { get; set; }
+    public int Code { get; set; }
     public IList<QuestionValueObject> Questions { get; set; }
 
 }
