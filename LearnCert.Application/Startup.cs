@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using LearnCert.API.Infrastructure;
 using LearnCert.Domain.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,8 +35,13 @@ public class Startup
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
-                ValidateAudience = false,
+                ValidateAudience = false
             };
+        });
+        
+        services.AddControllers().AddJsonOptions(opt =>
+        {
+            opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
         
         var app = new ApplicationConstructor(_configuration, services);
