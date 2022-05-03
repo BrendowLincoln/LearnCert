@@ -9,7 +9,8 @@ public class CreateCertitication  : Migration
     public override void Up()
     {
         Create.Table("AnswerOption")
-            .WithColumn("Id").AsUUID().PrimaryKey()
+            .WithColumn("Id").AsUUID().NotNullable()
+            .WithColumn("Code").AsInt32().NotNullable()
             .WithColumn("Description").AsString().NotNullable()
             .WithColumn("IsCorrect").AsBoolean().NotNullable().WithDefaultValue(false)
             .WithColumn("QuestionDescriptionId").AsUUID().NotNullable();
@@ -36,7 +37,7 @@ public class CreateCertitication  : Migration
         Create.Table("Module")
             .WithColumn("Id").AsUUID().PrimaryKey()
             .WithColumn("Title").AsString().NotNullable()
-            .WithColumn("OrderExibition").AsInt32().NotNullable()
+            .WithColumn("Code").AsInt32().NotNullable()
             .WithColumn("CertificationId").AsUUID().NotNullable();
         
         Create.ForeignKey("FK_Question_Module")
