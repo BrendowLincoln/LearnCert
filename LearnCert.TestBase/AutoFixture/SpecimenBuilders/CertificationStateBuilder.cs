@@ -29,15 +29,32 @@ internal class CertificationStateBuilder : BaseBuilder
         var modules = new List<ModuleState>();
         for (var i = 0; i < 3; i++)
         {
-            modules.Add(new ModuleState
+            var module = new ModuleState
             {
                 Id = context.Create<Guid>(),
-                Certification = certification, 
-                OrderExibition = context.Create<int>(),
+                Certification = certification,
+                Code = context.Create<int>(),
                 Title = context.Create<string>()
-            });
+            };
+            module.Questions = CreateQuestions(context, module);
+            modules.Add(module);
         }
-
         return modules;
+    }
+    
+    private IList<QuestionState> CreateQuestions(ISpecimenContext context, ModuleState module)
+    {
+        var questions = new List<QuestionState>();
+        for (var i = 0; i < 3; i++)
+        {
+            var question = new QuestionState
+            {
+                Id = context.Create<Guid>(),
+                Module = module,
+                Code = context.Create<int>()
+            };
+            questions.Add(question);
+        }
+        return questions;
     }
 }
