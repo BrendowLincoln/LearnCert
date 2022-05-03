@@ -4,5 +4,6 @@ public class AnswerOptionValueObject
 {
     public Guid Id { get; set; }
     public string Description { get; set; }
+    public int Code { get; set; }
     public bool IsCorrect { get; set; }
 }

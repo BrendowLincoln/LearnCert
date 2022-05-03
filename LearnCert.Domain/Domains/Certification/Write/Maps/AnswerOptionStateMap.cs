@@ -1,5 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using LearnCert.Domain.Domains.Certification.Write.Enums;
 using LearnCert.Domain.Domains.Certification.Write.States;
 
 namespace LearnCert.Domain.Domains.Certification.Write.Maps;
@@ -12,6 +11,7 @@ public class AnswerOptionStateMap : ClassMap<AnswerOptionState>
             
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Description);
+        Map(x => x.Code);
         Map(x => x.IsCorrect);
         
         References(x => x.QuestionDescription, "QuestionDescriptionId");
