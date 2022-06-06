@@ -14,12 +14,13 @@ public class QuestionState : BaseState
         Id = question.Id;
         Code = question.Code;
         Module = module;
-        QuestionDescriptions = question.QuestionDescriptions.Select(x => new QuestionDescriptionState(x, this)).ToList();
+        AnswerOptions = question.AnswerOptions.Select(x => new AnswerOptionState(x, this)).ToList();
+
     }
 
     public virtual Guid Id { get; set; }
     public virtual int Code { get; set; }
-    
-    public virtual IList<QuestionDescriptionState> QuestionDescriptions { get; set; }
+    public virtual string Description { get; set; }
+    public virtual IList<AnswerOptionState> AnswerOptions { get; set; }
     public virtual ModuleState Module { get; set; }
 }

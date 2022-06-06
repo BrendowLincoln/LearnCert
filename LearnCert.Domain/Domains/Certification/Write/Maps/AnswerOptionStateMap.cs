@@ -14,7 +14,7 @@ public class AnswerOptionStateMap : ClassMap<AnswerOptionState>
         Map(x => x.Code);
         Map(x => x.IsCorrect);
         
-        References(x => x.QuestionDescription, "QuestionDescriptionId");
+        References(x => x.Question, "QuestionId");
 
     }
 }

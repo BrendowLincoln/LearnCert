@@ -11,10 +11,11 @@ public class QuestionStateMap : ClassMap<QuestionState>
             
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Code);
+        Map(x => x.Description);
 
         References(x => x.Module, "ModuleId");
 
-        HasMany(x => x.QuestionDescriptions)
+        HasMany(x => x.AnswerOptions)
             .KeyColumn("QuestionId")
             .Cascade.AllDeleteOrphan();
 

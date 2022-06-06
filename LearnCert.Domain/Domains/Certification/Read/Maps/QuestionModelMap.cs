@@ -5,11 +5,11 @@ using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.Domain.Domains.Certification.Read.Maps;
 
-public class QuestionDescriptionModelMap : ClassMap<QuestionDescriptionModel>
+public class QuestionModelMap : ClassMap<QuestionModel>
 {
-    public QuestionDescriptionModelMap()
+    public QuestionModelMap()
     {
-        Table("QuestionDescriptionView");
+        Table("QuestionView");
         ReadOnly();
  
         Id(x => x.Id);
@@ -21,6 +21,6 @@ public class QuestionDescriptionModelMap : ClassMap<QuestionDescriptionModel>
         Map(x => x.QuestionId);
 
         HasMany(x => x.AnswerOptions)
-            .KeyColumn("QuestionDescriptionId");
+            .KeyColumn("QuestionId");
     }
 }
