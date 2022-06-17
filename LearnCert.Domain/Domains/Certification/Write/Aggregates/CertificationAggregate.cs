@@ -21,7 +21,8 @@ public class CertificationAggregate : BaseAggregate<CertificationState>, ICertif
         State = new CertificationState
         {
             Id = cmd.Id,
-            Title = cmd.Title
+            Title = cmd.Title,
+            ImageUrl = cmd.ImageUrl
         };
         State.Modules = cmd.Modules.Select(x => new ModuleState(x, State)).ToList();
     }

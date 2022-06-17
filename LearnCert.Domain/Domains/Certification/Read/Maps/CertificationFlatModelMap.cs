@@ -5,19 +5,19 @@ using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.Domain.Domains.Certification.Read.Maps;
 
-public class CertificationModelMap : ClassMap<CertificationModel>
+public class CertificationFlatModelMap : ClassMap<CertificationFlatModel>
 {
-    public CertificationModelMap()
+    public CertificationFlatModelMap()
     {
         ReadOnly();
-        Table("Certification");
+        Table("CertificationFlatView");
             
         Id(x => x.Id);
-        Map(x => x.ImageUrl);
         Map(x => x.Title);
+        Map(x => x.ImageUrl);
+        Map(x => x.CountQuestions);
         Map(x => x.LanguageType).AsEnumString<LanguageType>();
 
-        HasMany(x => x.Modules).KeyColumn("CertificationId");
 
     }
 }

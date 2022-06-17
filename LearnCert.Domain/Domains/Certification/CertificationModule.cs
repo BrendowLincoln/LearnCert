@@ -14,5 +14,6 @@ public class CertificationModule : IDependencyInjection
         
         services.AddScoped<CertificationCommandHandler>();
         services.AddScoped<ICertificationQueryHandler, CertificationQueryHandler>();
+        services.AddScoped<ICertificationFlatQueryHandler, CertificationFlatQueryHandler>();
     }
 }

@@ -13,6 +13,7 @@ public class CertificationStateMap : ClassMap<CertificationState>
             
         Id(x => x.Id).GeneratedBy.Assigned();
         Map(x => x.Title);
+        Map(x => x.ImageUrl);
         Map(x => x.LanguageType).AsEnumString<LanguageType>();
 
         HasMany(x => x.Modules)

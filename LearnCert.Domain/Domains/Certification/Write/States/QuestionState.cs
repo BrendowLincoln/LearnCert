@@ -13,6 +13,7 @@ public class QuestionState : BaseState
     {
         Id = question.Id;
         Code = question.Code;
+        Description = question.Description;
         Module = module;
         AnswerOptions = question.AnswerOptions.Select(x => new AnswerOptionState(x, this)).ToList();
 

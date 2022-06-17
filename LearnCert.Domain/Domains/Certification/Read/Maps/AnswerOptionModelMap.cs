@@ -1,7 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using LearnCert.Domain.Domains.Certification.Write.Enums;
 using LearnCert.Domain.Domains.Certification.Write.States;
-using LearnCert.Domain.Infrastructure.Persistence;
 
 namespace LearnCert.Domain.Domains.Certification.Read.Maps;
 

@@ -1,5 +1,4 @@
-﻿using LearnCert.Domain.Domains.Book.Read.Models;
-using LearnCert.Domain.Domains.Certification.Write.States;
+﻿using LearnCert.Domain.Domains.Certification.Write.States;
 using LearnCert.Domain.Infrastructure.Persistence;
 using LearnCert.Domain.Infrastructure.Persistence.QueryHandlers;
 
