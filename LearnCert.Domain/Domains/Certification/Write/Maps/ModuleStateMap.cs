@@ -17,8 +17,7 @@ public class ModuleStateMap : ClassMap<ModuleState>
         
         HasMany(x => x.Questions)
             .KeyColumn("ModuleId")
-            .Cascade.AllDeleteOrphan()
-            .Inverse();
+            .Cascade.AllDeleteOrphan();
 
     }
 }

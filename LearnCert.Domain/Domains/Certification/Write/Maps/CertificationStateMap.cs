@@ -18,8 +18,7 @@ public class CertificationStateMap : ClassMap<CertificationState>
 
         HasMany(x => x.Modules)
             .KeyColumn("CertificationId")
-            .Cascade.AllDeleteOrphan()
-            .Inverse();
+            .Cascade.AllDeleteOrphan();
 
     }
 }

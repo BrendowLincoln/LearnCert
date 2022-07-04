@@ -1,4 +1,5 @@
-﻿using LearnCert.Domain.Domains.Book.Read.QueryHandlers;
+﻿using LearnCert.Domain.Domains.Book;
+using LearnCert.Domain.Domains.Book.Read.QueryHandlers;
 using LearnCert.Domain.Domains.Certification.Write.CommandHandlers;
 using LearnCert.Domain.Domains.Certification.Write.Repositories;
 using LearnCert.Domain.Infrastructure.Persistence;
@@ -15,5 +16,7 @@ public class CertificationModule : IDependencyInjection
         services.AddScoped<CertificationCommandHandler>();
         services.AddScoped<ICertificationQueryHandler, CertificationQueryHandler>();
         services.AddScoped<ICertificationFlatQueryHandler, CertificationFlatQueryHandler>();
+        services.AddScoped<ICertificationValidator, CertificationValidator>();
+
     }
 }

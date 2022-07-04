@@ -41,6 +41,13 @@ public class CertificationController : ControllerBase
         _commandRouter.Send(command);
         return Created(new Uri($"{Request.Path}/{command.Id}", UriKind.Relative), command);
     }
+    
+    [HttpPut]
+    public IActionResult Update([FromBody] UpdateCertificationCommand command)
+    {
+        _commandRouter.Send(command);
+        return Accepted(new Uri($"{Request.Path}/{command.Id}", UriKind.Relative), command);
+    }
 
   
 }
